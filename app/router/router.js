@@ -11,5 +11,5 @@ rourter.use("/team", teamRoutes);
 rourter.use("/user", userRoutes);
 
 module.exports = {
-  AllRoutes: rourter,
+    AllRoutes: rourter,
 };
