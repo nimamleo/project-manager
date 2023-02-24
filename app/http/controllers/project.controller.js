@@ -25,7 +25,7 @@ class ProjectController {
             next(err);
         }
     }
-    getAllProject(req,res,next) {
+    async getAllProject(req,res,next) {
         try {
             const owner = req.user[0]._id
             const projects = await ProjectModel.find({owner})
