@@ -1,0 +1,9 @@
+###create new 
+GET  http://127.0.0.1:3000/project/create
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
+
+{
+    "title":"asfdas",
+    "text":"asdasdsadasdsadasdasdaad"
+}

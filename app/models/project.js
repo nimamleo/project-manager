@@ -5,7 +5,7 @@ const ProjectSchema = new mongoose.Schema(
     text: { type: String },
     image: { type: String, default: "/defaults/default.png" },
     owner: { type: mongoose.Types.ObjectId, required: true },
-    team: { type: mongoose.Types.ObjectId, required: true },
+    team: { type: mongoose.Types.ObjectId },
     private: { type: Boolean, default: true },
   },
   { timestamps: true }
