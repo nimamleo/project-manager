@@ -3,13 +3,14 @@ const { ProjectModel } = require("../../models/project");
 class ProjectController {
     async createProject(req, res, next) {
         try {
-            const { title, text, image } = req.body;
+            const { title, text, image, tags } = req.body;
             const owner = req.user[0]._id;
             const result = await ProjectModel.create({
                 title,
                 text,
                 owner,
                 image,
+                tags,
             });
             if (!result)
                 throw {
