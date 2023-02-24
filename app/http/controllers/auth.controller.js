@@ -23,7 +23,6 @@ class AuthController {
     }
     async login(req, res, next) {
         try {
-            console.log(req.headers);
             const { username, password } = req.body;
             const user = await UserModel.findOne({ username });
             if (!user)
@@ -38,8 +37,8 @@ class AuthController {
                     message: "username and password is in correct",
                 };
             const token = tokenGenerator({ username });
-            user.token = token
-            await user.save()
+            user.token = token;
+            await user.save();
             return res.status(200).json({
                 status: 200,
                 succes: true,

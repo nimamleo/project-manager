@@ -4,7 +4,6 @@ const checkLogin = async (req, res, next) => {
     try {
         let authError = { status: 401, message: "please login" };
         const authorization = req?.headers?.authorization;
-        console.log(authorization);
         if (!authorization) throw authError;
         let token = authorization.split(" ")[1];
         if (!token) throw { status: 401, message: "please login" };
