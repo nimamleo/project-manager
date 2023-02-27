@@ -1,6 +1,10 @@
 const { ProjectModel } = require("../../models/project");
+const autoBind = require("auto-bind");
 
 class ProjectController {
+    constructor() {
+        autoBind(this);
+    }
     async createProject(req, res, next) {
         try {
             const { title, text, image, tags } = req.body;
@@ -26,57 +30,61 @@ class ProjectController {
             next(err);
         }
     }
-    async getAllProject(req,res,next) {
+    async getAllProject(req, res, next) {
         try {
-            const owner = req.user[0]._id
-            const projects = await ProjectModel.find({owner})
+            const owner = req.user[0]._id;
+            const projects = await ProjectModel.find({ owner });
             return res.status(200).json({
-                status:200,
-                success:true,
-                projects
-            })
+                status: 200,
+                success: true,
+                projects,
+            });
         } catch (err) {
-            next(err)
+            next(err);
         }
     }
-    async findProject(projectId , owner){
-        const project = await ProjectModel.findOne({owner , projectId})
-        if(project) throw {status:404 , message:"project not found"}
-        return project
+    async findProject(projectId, owner) {
+        const project = await ProjectModel.findOne({ owner, _id: projectId });
+        if (!project) throw {  status: 404, message: "project not found" };
+        return project;
     }
-    async getProjectById(req,res,next) {
+    async getProjectById(req, res, next) {
         try {
-            const owner = req.user[0]._id
-            const projectId = req.param.id
-            const project = this.findProject(projectId , owner)
+            const owner = req.user[0]._id;
+            const projectId = req.params.id;
+            const project = await this.findProject(projectId, owner);
             return res.status(200).json({
-                status:200,
-                success:true,
-                project
-            })
+                status: 200,
+                success: true,
+                project,
+            });
         } catch (err) {
-            next(err)
+            next(err);
         }
     }
-    async removeProject(req,rex,next) {
+    async removeProject(req, res, next) {
         try {
-            const owner = req.user[0]._id
-            const projectId = req.param.id
-            this.findProject(projectId , owner)
-            const deleteProjectResult =await ProjectModel.deleteOne({_id:projectId})
-            if(deleteProjectResult.deletedCount==0) throw {status:400 , message:"project did not delete"}
+            const owner = req.user[0]._id;
+            const projectId = req.params.id;
+            await this.findProject(projectId, owner);
+            const deleteProjectResult = await ProjectModel.deleteOne({
+                    _id: projectId,
+                });
+            console.log(deleteProjectResult);
+            if (deleteProjectResult.deletedCount == 0)
+                throw { status: 400, message: "project did not delete" };
             return res.status(200).json({
-                status:200,
-                success:true,
-            })
+                status: 200,
+                success: true,
+                message: "project deleted suucessfully",
+            });
         } catch (err) {
-            next(err)
+            next(err);
         }
     }
     getProjectOfUser() {}
     updateProject() {}
 }
-message:"project deleted suucessfully"
 
 module.exports = {
     ProjectController: new ProjectController(),

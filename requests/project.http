@@ -1,5 +1,5 @@
 ###create new 
-GET  http://127.0.0.1:3000/project/create
+POST   http://127.0.0.1:3000/project/create
 Content-Type: application/json
 Authorization:  Bearer {{$dotenv token}}
 
@@ -7,3 +7,8 @@ Authorization:  Bearer {{$dotenv token}}
     "title":"asfdas",
     "text":"asdasdsadasdsadasdasdaad"
 }
+
+###
+GET  http://127.0.0.1:3000/project/list
+Content-Type: application/json
+Authorization:  Bearer {{$dotenv token}}
