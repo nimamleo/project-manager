@@ -19,6 +19,7 @@ router.post(
     ProjectController.createProject
 );
 
+
 router.get("/list", checkLogin, ProjectController.getAllProject);
 router.get(
     "/:id",
@@ -34,12 +35,21 @@ router.delete(
     expressValidationMapper,
     ProjectController.removeProject
 );
-router.patch(
+router.put(
     "/edit/:id",
     checkLogin,
     mongoIdValidator(),
     expressValidationMapper,
     ProjectController.updateProject
+);
+router.patch(
+    "/edit-projectImage/:id",
+    fileupload(),
+    checkLogin,
+    uploadFile,
+    mongoIdValidator(),
+    expressValidationMapper,
+    ProjectController.updateProjectImage
 );
 
 module.exports = {

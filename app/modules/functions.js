@@ -40,9 +40,14 @@ function createUploadPath() {
     return path.join("public", "upload", year, month, day);
 }
 
+function createLinkForFiles(fileAddress,req){
+    return `${req.protocol}://${req.get('host')}/${fileAddress.split(`\\`).join("/")}`
+}
+
 module.exports = {
     hashString,
     tokenGenerator,
     verifyJwtToken,
-    createUploadPath
+    createUploadPath,
+    createLinkForFiles
 };
