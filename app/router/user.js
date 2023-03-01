@@ -6,7 +6,10 @@ const { upload_multer } = require("../modules/multer");
 const rourter = require("express").Router();
 
 rourter.get("/profile", checkLogin, UserController.getProfile);
-rourter.post("/profile", checkLogin, UserController.editProfile);
+rourter.post("/profile", checkLogin, UserController.getProfile);
+rourter.get("/requests", checkLogin, UserController.getAllRequest);
+rourter.get("/requests/:status", checkLogin, UserController.getRequestsByStatus);
+rourter.get("/change-status-request/:id/:status", checkLogin, UserController.changeStatusRequest);
 rourter.post(
     "/profile-image",
     checkLogin,

@@ -41,7 +41,7 @@ function createUploadPath() {
 }
 
 function createLinkForFiles(fileAddress,req){
-    return `${req.protocol}://${req.get('host')}/${fileAddress.split(`\\`).join("/")}`
+    return fileAddress? `${req.protocol}://${req.get('host')}/${fileAddress.split(`\\`).join("/")}` :undefined
 }
 
 module.exports = {
